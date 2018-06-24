@@ -3,6 +3,10 @@
 	"version": "1.0.0",
 	"main": "index.js",
 	"license": "MIT",
+	"engines": {
+		"node": "7.10.1",
+		"yarn": "0.21.3"
+	},
 	"dependencies": {
 		"axios": "^0.18.0",
 		"body-parser": "^1.18.3",
