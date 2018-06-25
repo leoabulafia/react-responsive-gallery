@@ -20,16 +20,16 @@ app.post('/api/images', (req, res) => {
 		.get(
 			`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${
 				keys.apiFlickrKey
-			}&tags=aegiali&per_page=${perPage}&page=${page}&format=json&nojsoncallback=1`
+			}&tags=aegiali&per_page=${perPage}&page=${page}&extras=owner_name&format=json&nojsoncallback=1`
 		)
 		.then(response => {
-			console.log(response.data.photos.photo);
 			let imgAttributesArray = response.data.photos.photo.map(img => {
 				let imgAttributes = {
 					farm: img.farm,
 					server: img.server,
 					id: img.id,
-					secret: img.secret
+					secret: img.secret,
+					ownername: img.ownername
 				};
 				return imgAttributes;
 			});
@@ -39,10 +39,13 @@ app.post('/api/images', (req, res) => {
 
 // fetches selected image from gallery by url
 app.post('/api/currentimage', (req, res) => {
+	console.log(req.body);
 	const { id, secret } = req.body;
 	axios
 		.get(
-			`https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=&photo_id=${id}&secret=${secret}&format=json&nojsoncallback=1`
+			`https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=${
+				keys.apiFlickrKey
+			}&photo_id=${id}&secret=${secret}&format=json&nojsoncallback=1`
 		)
 		.then(response => res.send(response.data.photo));
 });

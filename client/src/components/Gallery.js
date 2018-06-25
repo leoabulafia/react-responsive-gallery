@@ -3,41 +3,12 @@ import flow from 'lodash/flow';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import injectSheet from 'react-jss';
+//actions
 import { displayCurrentImage, fetchImages } from 'actions';
+//styles
+import galleryStyles from 'styles/galleryStyles';
 //components
 import Description from 'components/Description';
-
-//styles
-const styles = {
-	containerGallery: {
-		padding: '30px 20px 100px 20px'
-	},
-	containerImage: {
-		width: 'calc(20% - 8px)',
-		display: 'inline-block',
-		padding: '4px'
-	},
-	image: {
-		width: '100%',
-		height: 'auto',
-		cursor: 'pointer'
-	},
-	'@media screen and (max-width: 1028px)': {
-		containerImage: {
-			width: 'calc(25% - 8px)'
-		}
-	},
-	'@media screen and (max-width: 750px)': {
-		containerImage: {
-			width: 'calc(33% - 8px)'
-		}
-	},
-	'@media screen and (max-width: 500px)': {
-		containerImage: {
-			width: 'calc(50% - 8px)'
-		}
-	}
-};
 
 class Gallery extends React.Component {
 	onDisplayImage = (image, i) => () => {
@@ -46,13 +17,16 @@ class Gallery extends React.Component {
 			id: image.id,
 			secret: image.secret
 		};
+		console.log(imageAttributes);
 		displayCurrentImage(imageAttributes, history, i);
 	};
+
 	onLoadMoreImages = pageNumber => () => {
 		const { fetchImages } = this.props;
 		let page = { perPage: 10, page: pageNumber };
 		fetchImages(page);
 	};
+
 	render() {
 		const { images, classes } = this.props;
 		return (
@@ -65,19 +39,24 @@ class Gallery extends React.Component {
 								className={classes.containerImage}
 								key={i}
 								onClick={this.onDisplayImage(image, i)}>
-								<img
-									className={classes.image}
-									alt="greece"
-									src={`https://farm${image.farm}.staticflickr.com/${
-										image.server
-									}/${image.id}_${image.secret}_q.jpg`}
-								/>
+								<div className={classes.hoverImage}>
+									<div className={classes.textInImage}>{image.ownername}</div>
+									<img
+										className={classes.image}
+										alt="greece"
+										src={`https://farm${image.farm}.staticflickr.com/${
+											image.server
+										}/${image.id}_${image.secret}_q.jpg`}
+									/>
+								</div>
 							</li>
 						);
 					})}
 				</ul>
-				<button onClick={this.onLoadMoreImages(images.page + 1)}>
-					Load more images
+				<button
+					className={classes.loadMoreButton}
+					onClick={this.onLoadMoreImages(images.page + 1)}>
+					Load more images...
 				</button>
 			</div>
 		);
@@ -88,6 +67,6 @@ const mapStateToProps = ({ images }) => ({ images });
 
 export default flow(
 	connect(mapStateToProps, { displayCurrentImage, fetchImages }),
-	injectSheet(styles),
+	injectSheet(galleryStyles),
 	withRouter
 )(Gallery);

@@ -1,15 +1,11 @@
 import React from 'react';
+import flow from 'lodash/flow';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import injectSheet from 'react-jss';
 import ImageInShowcase from 'components/ImageInShowcase';
 import { displayCurrentImage } from 'actions';
-
-const styles = {
-	showcase: {
-		height: '100vh',
-		backgroundColor: '#000'
-	}
-};
+import showcaseStyles from 'styles/showcaseStyles';
 
 class Showcase extends React.Component {
 	/*
@@ -20,7 +16,6 @@ class Showcase extends React.Component {
 		const { match, history, displayCurrentImage, images } = this.props;
 		let index = parseInt(match.params.id);
 		let imageDetails = images.imagesCollection.slice(index, index + 1)[0];
-		console.log(imageDetails);
 		if (images !== prevProps.images) {
 			displayCurrentImage(imageDetails, history, index);
 		}
@@ -48,13 +43,32 @@ class Showcase extends React.Component {
 	};
 
 	render() {
-		const { currentImage } = this.props;
+		const { classes, currentImage } = this.props;
 		return (
-			<div style={styles.showcase}>
-				<Link to="/">X</Link>
+			<div className={classes.showcase}>
+				<Link className={classes.closeLink} to="/">
+					<div
+						className={classes.buttonShowcase}
+						style={{ right: 10, top: 10 }}>
+						x
+					</div>
+				</Link>
+
 				<ImageInShowcase image={currentImage.imageDetails} />
-				<button onClick={this.onDisplayNew(-1)}>Previous</button>
-				<button onClick={this.onDisplayNew(1)}>Next</button>
+				<div style={{ width: '80%', margin: 'auto' }}>
+					<button
+						className={classes.buttonShowcase}
+						style={{ left: 10, top: 250 }}
+						onClick={this.onDisplayNew(-1)}>
+						Previous
+					</button>
+					<button
+						className={classes.buttonShowcase}
+						style={{ right: 10, top: 250 }}
+						onClick={this.onDisplayNew(1)}>
+						Next
+					</button>
+				</div>
 			</div>
 		);
 	}
@@ -65,6 +79,8 @@ const mapStateToProps = ({ currentImage, images }) => ({
 	images
 });
 
-export default connect(mapStateToProps, { displayCurrentImage })(
-	withRouter(Showcase)
-);
+export default flow(
+	connect(mapStateToProps, { displayCurrentImage }),
+	injectSheet(showcaseStyles),
+	withRouter
+)(Showcase);

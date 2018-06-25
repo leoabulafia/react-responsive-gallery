@@ -1,15 +1,11 @@
 import React from 'react';
+import injectSheet from 'react-jss';
+//styles
+import imageInShowcaseStyles from 'styles/imageInShowcaseStyles';
 
-const styles = {
-	imageInShowcase: {
-		margin: 'auto',
-		display: 'block'
-	}
-};
-
-export default class ImageInShowcase extends React.Component {
+class ImageInShowcase extends React.Component {
 	renderContent() {
-		const { image } = this.props;
+		const { image, classes } = this.props;
 		switch (image) {
 			case undefined || null:
 				return;
@@ -17,12 +13,29 @@ export default class ImageInShowcase extends React.Component {
 				return (
 					<div>
 						<img
-							style={styles.imageInShowcase}
+							className={classes.imageInShowcase}
 							alt="img in showcase"
 							src={`https://farm${image.farm}.staticflickr.com/${
 								image.server
 							}/${image.id}_${image.secret}_z.jpg`}
 						/>
+						<div
+							style={{
+								position: 'absolute',
+								bottom: 25,
+								marginLeft: 'auto',
+								marginRight: 'auto',
+								left: 0,
+								right: 0
+							}}>
+							<div className={classes.text}>Title: {image.title._content}</div>
+							<div className={classes.text}>
+								Tags: |
+								{image.tags.tag.map((tag, i) => {
+									return <span key={i}> {tag.raw} |</span>;
+								})}
+							</div>
+						</div>
 					</div>
 				);
 		}
@@ -31,3 +44,5 @@ export default class ImageInShowcase extends React.Component {
 		return <div>{this.renderContent()}</div>;
 	}
 }
+
+export default injectSheet(imageInShowcaseStyles)(ImageInShowcase);
