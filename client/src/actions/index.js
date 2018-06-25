@@ -1,18 +1,7 @@
-import {
-	FETCH_IMAGES,
-	FETCH_MORE_IMAGES,
-	DISPLAY_CURRENT_IMAGE
-} from 'actions/types';
+import { FETCH_IMAGES, DISPLAY_CURRENT_IMAGE } from 'actions/types';
 import axios from 'axios';
 
-//fetches the images
-// export const fetchImages = () => dispatch => {
-// 	axios.get('/api/images').then(res => {
-// 		dispatch({ type: FETCH_IMAGES, payload: res.data });
-// 	});
-// };
-
-//fetches more images (infinite scroll)
+//fetches images
 export const fetchImages = page => dispatch => {
 	axios.post('/api/images', page).then(res => {
 		dispatch({

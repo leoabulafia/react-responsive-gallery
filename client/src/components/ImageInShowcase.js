@@ -19,15 +19,7 @@ class ImageInShowcase extends React.Component {
 								image.server
 							}/${image.id}_${image.secret}_z.jpg`}
 						/>
-						<div
-							style={{
-								position: 'absolute',
-								bottom: 25,
-								marginLeft: 'auto',
-								marginRight: 'auto',
-								left: 0,
-								right: 0
-							}}>
+						<div className={classes.textPosition}>
 							<div className={classes.text}>Title: {image.title._content}</div>
 							<div className={classes.text}>
 								Tags: |

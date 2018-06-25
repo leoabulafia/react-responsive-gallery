@@ -58,15 +58,15 @@ class Showcase extends React.Component {
 				<div style={{ width: '80%', margin: 'auto' }}>
 					<button
 						className={classes.buttonShowcase}
-						style={{ left: 10, top: 250 }}
+						style={{ left: 10, top: 250, transform: 'rotate(135deg)' }}
 						onClick={this.onDisplayNew(-1)}>
-						Previous
+						<i className={classes.arrowShowcase} />
 					</button>
 					<button
 						className={classes.buttonShowcase}
-						style={{ right: 10, top: 250 }}
+						style={{ right: 10, top: 250, transform: 'rotate(-45deg)' }}
 						onClick={this.onDisplayNew(1)}>
-						Next
+						<i className={classes.arrowShowcase} />
 					</button>
 				</div>
 			</div>

@@ -18,6 +18,12 @@ const showcaseStyles = {
 	closeLink: {
 		color: 'white',
 		fontWeight: 700
+	},
+	arrowShowcase: {
+		border: 'solid white',
+		borderWidth: '0 3px 3px 0',
+		display: 'inline-block',
+		padding: '3px'
 	}
 };
 
