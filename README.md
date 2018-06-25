@@ -4,6 +4,7 @@
 
 This is a simple gallery made with react and redux. It loads images from the
 FlickrApi.
+You can see the [DEMO HERE](https://react-responsive-gallery.herokuapp.com/).
 
 * It shows images that can be hovered and show the username owner.
 * You can scroll down and load new images.
