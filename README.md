@@ -35,3 +35,8 @@ Project bootstraped with create-react-app
 * `Redux` (and its helper libraries)
 * `NodeJS` with `Express`
 * `JSS`
+
+## To be done
+
+* `Add tests with JEST and Enzyme`
+* `Add transitions`
